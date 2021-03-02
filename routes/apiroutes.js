@@ -3,7 +3,7 @@ const express = require("express");
 
 module.exports = function (app) {
     app.get("/api/workouts", function (req, res) {
-        db.collection('workout').aggregate([{
+        db.Workout.aggregate([{
             $addData: {
                 "totalDuration": {
                     $total: "$exercises.duration"
@@ -24,13 +24,13 @@ module.exports = function (app) {
     });
 
     app.post("/api/workouts", function (req, res) {
-        db.workout.create({}).then(function(dbWorkout) {
+        db.Workout.create({}).then(function(dbWorkout) {
             res.json(dbWorkout);
         });
     });
 
     app.put("/api/workouts/:id", function (req, res) {
-        db.workout.findByIdAndUpdate({ _id: req.params.id},
+        db.Workout.findByIdAndUpdate({ _id: req.params.id},
             {
                 $push: { exercises: req.body },
             },
@@ -42,7 +42,7 @@ module.exports = function (app) {
     });
 
     app.get("/api/workouts/range", function (req, res) {
-        db.workout.find({}).then(function (dbWorkout) {
+        db.Workout.find({}).then(function (dbWorkout) {
             res.json(dbWorkout);
         });
     });

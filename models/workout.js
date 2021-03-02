@@ -27,17 +27,8 @@ const Plan = new  Schema ({
             type: Number
         }
     }]
-},
-    {toJSON: { virtuals: true }});
-
-    Plan.virtual("totalDuration").get(function () {
-        return this.exercises.reduce((allDurations, exercise) => {
-            console.log (allDurations + exercise.duration);
-            return allDurations + exercise.duration
-        }, 0);
-    });
-
-
+    
+});
 
 const Workout = mongoose.model("Workout", Plan);
 
